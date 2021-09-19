@@ -1,8 +1,8 @@
 use csv;
 
-use CliResult;
 use config::{Config, Delimiter};
 use util;
+use CliResult;
 
 static USAGE: &str = "
 Read CSV data with special quoting rules.

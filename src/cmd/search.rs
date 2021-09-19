@@ -1,10 +1,10 @@
 use csv;
 use regex::bytes::RegexBuilder;
 
-use CliResult;
 use config::{Config, Delimiter};
 use select::SelectColumns;
 use util;
+use CliResult;
 
 static USAGE: &str = "
 Filters CSV data by whether the given regex matches a row.
