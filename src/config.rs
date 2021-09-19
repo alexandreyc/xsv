@@ -4,7 +4,6 @@ use std::borrow::ToOwned;
 use std::env;
 use std::fs;
 use std::io::{self, Read};
-use std::ops::Deref;
 use std::path::PathBuf;
 
 use csv;
@@ -32,7 +31,7 @@ impl Delimiter {
 impl<'de> Deserialize<'de> for Delimiter {
     fn deserialize<D: Deserializer<'de>>(d: D) -> Result<Delimiter, D::Error> {
         let c = String::deserialize(d)?;
-        match &*c {
+        match c.as_str() {
             r"\t" => Ok(Delimiter(b'\t')),
             s => {
                 if s.len() != 1 {
@@ -79,7 +78,7 @@ impl Config {
     pub fn new(path: &Option<String>) -> Config {
         let (path, delim) = match *path {
             None => (None, b','),
-            Some(ref s) if s.deref() == "-" => (None, b','),
+            Some(ref s) if s == "-" => (None, b','),
             Some(ref s) => {
                 let path = PathBuf::from(s);
                 let delim = if path.extension().map_or(false, |v| v == "tsv" || v == "tab") {
