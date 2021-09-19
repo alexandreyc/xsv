@@ -74,7 +74,7 @@ mod index;
 mod select;
 mod util;
 
-static USAGE: &'static str = concat!("
+static USAGE: &str = concat!("
 Usage:
     xsv <command> [<args>...]
     xsv [options]

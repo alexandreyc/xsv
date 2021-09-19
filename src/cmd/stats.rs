@@ -19,7 +19,7 @@ use util;
 
 use self::FieldType::{TUnknown, TNull, TUnicode, TFloat, TInteger};
 
-static USAGE: &'static str = "
+static USAGE: &str = "
 Computes basic statistics on CSV data.
 
 Basic statistics includes mean, median, mode, standard deviation, sum, max and

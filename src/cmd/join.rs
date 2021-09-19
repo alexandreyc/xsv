@@ -14,7 +14,7 @@ use index::Indexed;
 use select::{SelectColumns, Selection};
 use util;
 
-static USAGE: &'static str = "
+static USAGE: &str = "
 Joins two sets of CSV data on the specified columns.
 
 The default join operation is an 'inner' join. This corresponds to the

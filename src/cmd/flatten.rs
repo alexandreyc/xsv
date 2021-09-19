@@ -7,7 +7,7 @@ use CliResult;
 use config::{Config, Delimiter};
 use util;
 
-static USAGE: &'static str = "
+static USAGE: &str = "
 Prints flattened records such that fields are labeled separated by a new line.
 This mode is particularly useful for viewing one record at a time. Each
 record is separated by a special '#' character (on a line by itself), which

@@ -12,7 +12,7 @@ use config::{Config, Delimiter};
 use select::SelectColumns;
 use util::{self, FilenameTemplate};
 
-static USAGE: &'static str = "
+static USAGE: &str = "
 Partitions the given CSV data into chunks based on the value of a column
 
 The files are written to the output directory with filenames based on the

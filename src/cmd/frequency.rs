@@ -12,7 +12,7 @@ use index::Indexed;
 use select::{SelectColumns, Selection};
 use util;
 
-static USAGE: &'static str = "
+static USAGE: &str = "
 Compute a frequency table on CSV data.
 
 The frequency table is formatted as CSV data:
