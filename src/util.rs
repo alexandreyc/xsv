@@ -34,7 +34,7 @@ pub fn version() -> String {
 pub fn get_args<T>(usage: &str, argv: &[&str]) -> CliResult<T>
         where T: DeserializeOwned {
     Docopt::new(usage)
-           .and_then(|d| d.argv(argv.iter().map(|&x| x))
+           .and_then(|d| d.argv(argv.iter().copied())
                           .version(Some(version()))
                           .deserialize())
            .map_err(From::from)
@@ -87,7 +87,7 @@ pub fn last_modified(md: &fs::Metadata) -> u64 {
     FileTime::from_last_modification_time(md).seconds_relative_to_1970()
 }
 
-pub fn condense<'a>(val: Cow<'a, [u8]>, n: Option<usize>) -> Cow<'a, [u8]> {
+pub fn condense(val: Cow<[u8]>, n: Option<usize>) -> Cow<[u8]> {
     match n {
         None => val,
         Some(n) => {

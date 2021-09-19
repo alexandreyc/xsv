@@ -47,5 +47,6 @@ pub fn run(argv: &[&str]) -> CliResult<()> {
                 count
             }
         };
-    Ok(println!("{}", count))
+    println!("{}", count);
+    Ok(())
 }

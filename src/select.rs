@@ -277,7 +277,7 @@ impl OneSelector {
         match *self {
             OneSelector::Start => Ok(0),
             OneSelector::End => Ok(
-                if first_record.len() == 0 {
+                if first_record.is_empty() {
                     0
                 } else {
                     first_record.len() - 1
@@ -372,7 +372,7 @@ impl Selection {
         }
 
         let mut normal = inds.clone();
-        normal.sort();
+        normal.sort_unstable();
         normal.dedup();
         let mut set: Vec<_> =
             repeat(false).take(normal[normal.len()-1] + 1).collect();
@@ -413,7 +413,7 @@ pub type _NormalGetField<T> =
     fn(&mut &[bool], (usize, T)) -> Option<Option<T>>;
 
 impl NormalSelection {
-    pub fn select<'a, T, I>(&'a self, row: I) -> _NormalFilterMap<'a, T, I>
+    pub fn select<T, I>(&self, row: I) -> _NormalFilterMap<T, I>
              where I: Iterator<Item=T> {
         fn filmap<T>(v: Option<T>) -> Option<T> { v }
         fn get_field<T>(set: &mut &[bool], t: (usize, T))
