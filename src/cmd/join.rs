@@ -293,11 +293,11 @@ impl Args {
         let (sel1, sel2) = self.get_selections(
             &rconf1, &mut rdr1, &rconf2, &mut rdr2)?;
         Ok(IoState {
+            rdr1,
+            sel1,
+            rdr2,
+            sel2,
             wtr: Config::new(&self.flag_output).writer()?,
-            rdr1: rdr1,
-            sel1: sel1,
-            rdr2: rdr2,
-            sel2: sel2,
             no_headers: rconf1.no_headers,
             casei: self.flag_no_case,
             nulls: self.flag_nulls,
@@ -388,8 +388,8 @@ impl<R: io::Read + io::Seek> ValueIndex<R> {
         row_idx.write_u64::<BigEndian>(count as u64)?;
         let idx = Indexed::open(rdr, io::Cursor::new(row_idx.into_inner()))?;
         Ok(ValueIndex {
+            idx,
             values: val_idx,
-            idx: idx,
             num_rows: rowi,
         })
     }

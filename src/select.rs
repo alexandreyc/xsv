@@ -25,8 +25,8 @@ impl SelectColumns {
                 false
             };
         Ok(SelectColumns {
+            invert,
             selectors: SelectorParser::new(s).parse()?,
-            invert: invert,
         })
     }
 

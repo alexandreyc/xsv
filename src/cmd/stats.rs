@@ -265,13 +265,13 @@ impl Stats {
         if which.mode || which.cardinality { mode = Some(Default::default()); }
         if which.median { median = Some(Default::default()); }
         Stats {
+            sum,
+            minmax,
+            online,
+            mode,
+            median,
+            which,
             typ: Default::default(),
-            sum: sum,
-            minmax: minmax,
-            online: online,
-            mode: mode,
-            median: median,
-            which: which,
         }
     }
 
