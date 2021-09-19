@@ -64,7 +64,7 @@ pub type CsvVecs = Vec<Vec<String>>;
 
 pub trait Csv {
     fn to_vecs(self) -> CsvVecs;
-    fn from_vecs(CsvVecs) -> Self;
+    fn from_vecs(_: CsvVecs) -> Self;
 }
 
 impl Csv for CsvVecs {
@@ -84,7 +84,7 @@ impl CsvRecord {
 
 impl ops::Deref for CsvRecord {
     type Target = [String];
-    fn deref<'a>(&'a self) -> &'a [String] { &*self.0 }
+    fn deref(&self) -> &[String] { &*self.0 }
 }
 
 impl fmt::Debug for CsvRecord {
@@ -102,9 +102,9 @@ impl Arbitrary for CsvRecord {
         CsvRecord((0..size).map(|_| Arbitrary::arbitrary(g)).collect())
     }
 
-    fn shrink(&self) -> Box<Iterator<Item=CsvRecord>+'static> {
+    fn shrink(&self) -> Box<dyn Iterator<Item=CsvRecord>+'static> {
         Box::new(self.clone().unwrap()
-                     .shrink().filter(|r| r.len() > 0).map(CsvRecord))
+                     .shrink().filter(|r| !r.is_empty()).map(CsvRecord))
     }
 }
 
@@ -132,7 +132,7 @@ impl CsvData {
 
 impl ops::Deref for CsvData {
     type Target = [CsvRecord];
-    fn deref<'a>(&'a self) -> &'a [CsvRecord] { &*self.data }
+    fn deref(&self) -> &[CsvRecord] { &*self.data }
 }
 
 impl Arbitrary for CsvData {
@@ -148,7 +148,7 @@ impl Arbitrary for CsvData {
         }
     }
 
-    fn shrink(&self) -> Box<Iterator<Item=CsvData>+'static> {
+    fn shrink(&self) -> Box<dyn Iterator<Item=CsvData>+'static> {
         let len = if self.is_empty() { 0 } else { self[0].len() };
         let mut rows: Vec<CsvData> =
             self.clone()
